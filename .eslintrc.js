@@ -8,13 +8,13 @@ module.exports = {
   extends: [
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
-    "standard-with-typescript",
     "prettier",
   ],
   overrides: [],
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
+    ecmaFeatures: {},
   },
   plugins: ["react"],
   rules: {
