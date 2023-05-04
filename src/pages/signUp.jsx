@@ -33,7 +33,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignUp() {
+export const SignUp = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -140,4 +140,4 @@ export default function SignUp() {
       </Container>
     </ThemeProvider>
   );
-}
+};
