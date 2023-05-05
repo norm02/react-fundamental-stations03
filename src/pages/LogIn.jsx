@@ -2,11 +2,11 @@ import { useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { Navigate, useNavigate, Link } from "react-router-dom";
-import { Header } from "../components/Header";
-import "./LogIn.scss";
+import { Header } from "components/Header";
+import "LogIn.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { signIn } from "../authSlice";
-import { url } from "../const";
+import { signIn } from "authSlice";
+import { url } from "const";
 
 export const LogIn = () => {
   const auth = useSelector((state) => state.auth.isSignIn);
