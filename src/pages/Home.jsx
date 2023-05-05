@@ -10,7 +10,7 @@ export const Home = () => {
             <Link to="/login">Log In</Link>
           </li>
           <li>
-            <Link to="/signUp">Sign Up</Link>
+            <Link to="/signup">Sign Up</Link>
           </li>
         </ul>
       </nav>
