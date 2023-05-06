@@ -3,9 +3,10 @@ import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Navigate } from "react-router-dom";
-import { signIn } from "authSlice";
-import { Header } from "components/Header";
-import { url } from "const";
+import { signIn } from "../authSlice";
+import { Header } from "../components/Header";
+import { url } from "../const";
+import { Link } from "react-router-dom";
 import "./SignUp.scss";
 
 export const SignUp = () => {
@@ -22,8 +23,8 @@ export const SignUp = () => {
   const handlePasswordChange = (e) => setPassword(e.target.value);
   const onSignUp = () => {
     const data = {
-      email,
       name,
+      email,
       password,
     };
 
@@ -76,6 +77,10 @@ export const SignUp = () => {
             作成
           </button>
         </form>
+        <p>
+          アカウントをお持ちですか？
+          <Link to="/login">Log In</Link>
+        </p>
       </main>
     </div>
   );

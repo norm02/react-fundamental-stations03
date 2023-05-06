@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import { Home } from "pages/Home";
-import { LogIn } from "pages/LogIn";
-import { SignUp } from "pages/SignUp";
-import { NotFound } from "pages/NotFound";
+import { Home } from "../pages/Home";
+import { LogIn } from "../pages/LogIn";
+import { SignUp } from "../pages/SignUp";
+import { NotFound } from "../pages/NotFound";
 
 export const AppRouter = () => {
   const auth = useSelector((state) => state.auth.isSignIn);
