@@ -60,7 +60,7 @@ export const LogIn = () => {
             サインイン
           </button>
         </form>
-        <Link to="/signup">新規作成</Link>
+        <Link to="/signup">新規作成はこちら</Link>
       </main>
     </div>
   );

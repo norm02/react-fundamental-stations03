@@ -6,6 +6,7 @@ import { useNavigate, Navigate } from "react-router-dom";
 import { signIn } from "../authSlice";
 import { Header } from "../components/Header";
 import { url } from "../const";
+import { Upload } from "../components/Upload";
 import { Link } from "react-router-dom";
 import "./SignUp.scss";
 
@@ -73,13 +74,16 @@ export const SignUp = () => {
             className="password-input"
           />
           <br />
+          <label>ユーザーアイコン</label>
+          <br />
+          <Upload />
           <button type="button" onClick={onSignUp} className="signup-button">
             作成
           </button>
         </form>
         <p>
           アカウントをお持ちですか？
-          <Link to="/login">Log In</Link>
+          <Link to="/login">ログインはこちら</Link>
         </p>
       </main>
     </div>
