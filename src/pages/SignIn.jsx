@@ -3,24 +3,27 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import { Navigate, useNavigate, Link } from "react-router-dom";
 import { Header } from "../components/Header";
-import "./LogIn.scss";
+import "./SignIn.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../authSlice";
 import { url } from "../const";
+import { useForm } from "react-hook-form";
 
-export const LogIn = () => {
+export const SignIn = () => {
   const auth = useSelector((state) => state.auth.isSignIn);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState();
   const [cookies, setCookie, removeCookie] = useCookies();
-  const handleEmailChange = (e) => setEmail(e.target.value);
-  const handlePasswordChange = (e) => setPassword(e.target.value);
-  const onSignIn = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
     axios
-      .post(`${url}/signin`, { email, password })
+      .post(`${url}/signin`, { email: data.email, password: data.password })
       .then((res) => {
         setCookie("token", res.data.token);
         dispatch(signIn());
@@ -39,24 +42,26 @@ export const LogIn = () => {
       <main className="signin">
         <h2>サインイン</h2>
         <p className="error-message">{errorMessage}</p>
-        <form className="signin-form">
+        <form className="signin-form" onSubmit={handleSubmit(onSubmit)}>
           <label className="email-label">メールアドレス</label>
           <br />
           <input
             type="email"
             className="email-input"
-            onChange={handleEmailChange}
+            {...register("email", { required: true })}
           />
+          {errors.email && <span>メールアドレスを入力してください。</span>}
           <br />
           <label className="password-label">パスワード</label>
           <br />
           <input
             type="password"
             className="password-input"
-            onChange={handlePasswordChange}
+            {...register("password", { required: true })}
           />
+          {errors.password && <span>パスワードを入力してください。</span>}
           <br />
-          <button type="button" className="signin-button" onClick={onSignIn}>
+          <button type="submit" className="signin-button">
             サインイン
           </button>
         </form>
