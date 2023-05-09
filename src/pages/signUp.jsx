@@ -118,7 +118,12 @@ export const SignUp = () => {
           <br />
           <label>ユーザーアイコン</label>
           <br />
-          <input accept=".jpg, .png" type="file" onChange={fileset} />
+          <input
+            className="icon-input"
+            accept=".jpg, .png"
+            type="file"
+            onChange={fileset}
+          />
           <button type="submit" className="signup-button">
             作成
           </button>
