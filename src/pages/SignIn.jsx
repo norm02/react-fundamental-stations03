@@ -43,19 +43,23 @@ export const SignIn = () => {
         <h2>サインイン</h2>
         <p className="error-message">{errorMessage}</p>
         <form className="signin-form" onSubmit={handleSubmit(onSubmit)}>
-          <label className="email-label">メールアドレス</label>
+          <label htmlFor="email-input">メールアドレス</label>
           <br />
           <input
+            id="email-input"
             type="email"
+            placeholder="email"
             className="email-input"
             {...register("email", { required: true })}
           />
           {errors.email && <span>メールアドレスを入力してください。</span>}
           <br />
-          <label className="password-label">パスワード</label>
+          <label htmlFor="password-input">パスワード</label>
           <br />
           <input
+            id="password-input"
             type="password"
+            placeholder="password"
             className="password-input"
             {...register("password", { required: true })}
           />

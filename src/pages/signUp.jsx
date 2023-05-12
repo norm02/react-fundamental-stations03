@@ -128,7 +128,7 @@ export const SignUp = () => {
             作成
           </button>
         </form>
-        <p>
+        <p className="login-link">
           アカウントをお持ちですか？
           <Link to="/login">ログインはこちら</Link>
         </p>
