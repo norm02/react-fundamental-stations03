@@ -21,8 +21,8 @@ export const SignIn = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    axios
+  const onSubmit = async (data) => {
+    await axios
       .post(`${url}/signin`, { email: data.email, password: data.password })
       .then((res) => {
         setCookie("token", res.data.token);

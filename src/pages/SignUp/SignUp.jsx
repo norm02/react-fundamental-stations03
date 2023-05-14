@@ -48,7 +48,7 @@ export const SignUp = () => {
         }
         // 画像を圧縮して送信
         new Compressor(image, {
-          quality: 0.8,
+          quality: 0.4,
           success: (result) => {
             // 送信用のフォームデータを作成
             const formData = new FormData();
