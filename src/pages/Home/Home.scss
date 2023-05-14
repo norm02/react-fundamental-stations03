@@ -1,7 +1,7 @@
 @charset "utf-8";
 
-@use "../global/variables" as var;
-@use "../global/mixins" as mix;
+@use "../../global/variables" as var;
+@use "../../global/mixins" as mix;
 
 .taskList {
   margin: 50px auto;
