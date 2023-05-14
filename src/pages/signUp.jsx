@@ -15,72 +15,69 @@ export const SignUp = () => {
   const navigate = useNavigate();
   const auth = useSelector((state) => state.auth.isSignIn);
   const dispatch = useDispatch();
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [image, setImage] = useState(null);
   const [errorMessage, setErrorMessge] = useState();
   const [cookies, setCookie, removeCookie] = useCookies();
+  const handleImageChange = (e) => setImage(e.target.files[0]);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    axios
+  //ユーザー作成ができてから、トークンを取得し、Cookieに保存する
+  //そうでないと、Cookieにトークンが保存されない上に、画像のUploadsへのリクエストが401エラーになる
+  const onSubmit = async (data) => {
+    //APIのusersにPOSTリクエストを送る
+    await axios
       .post(`${url}/users`, {
-        name: data.email,
-        email: data.name,
+        name: data.name,
+        email: data.email,
         password: data.password,
       })
       .then((res) => {
+        //POSTリクエストのレスポンスからトークンを取得
         const token = res.data.token;
+        //dispatchし、authSliceのisSignInをtrueにする（ログイン状態にする）
         dispatch(signIn());
+        //Cookieにトークンを保存
         setCookie("token", token);
-        navigate("/");
-      });
-
-    const image = selectedFile[0];
-    if (!image) {
-      return;
-    }
-    new Compressor(image, {
-      quality: 0.8,
-      success: (compressedResult) => {
-        console.log("compressedResult", compressedResult);
-        const formData = new FormData();
-        formData.append("icon", selectedFile);
-        axios
-          .post(`${url}/uploads`, formData, {
-            headers: {
-              Authorization: `Bearer ` + cookies.token,
-            },
-          })
-          .then(() => {
-            console.log("Upload success");
+        console.log(image);
+        if (!image) {
+          return;
+        }
+        // 画像を圧縮して送信
+        new Compressor(image, {
+          quality: 0.8,
+          success: (result) => {
+            // 送信用のフォームデータを作成
+            const formData = new FormData();
+            formData.append("icon", result);
+            console.log(formData.get("icon"));
+            // フォームデータをAPIのuploadsに送信
             axios
-              .post(`${url}/users`, {
-                name: data.name,
-                email: data.email,
-                password: data.password,
+              .post(`${url}/uploads`, formData, {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  "Content-Type": "multipart/form-data",
+                },
               })
-              .then((res) => {
-                const token = res.data.token;
-                dispatch(signIn());
-                setCookie("token", token);
+              .then(() => {
+                console.log("Upload Success");
                 navigate("/");
               });
-          })
-          .catch((err) => {
-            setErrorMessge(`サインアップに失敗しました。 ${err}`);
-          });
-      },
-    });
+          },
+          error(err) {
+            console.log(err.message);
+          },
+        });
+      })
+      .catch((err) => {
+        setErrorMessge(`サインアップに失敗しました。 ${err}`);
+      });
   };
+  //ユーザーが既にログインしていたら、トップページにリダイレクト
   if (auth) return <Navigate to="/" replace />;
-
-  const fileset = (e) => {
-    setSelectedFile(e.target.files[0]);
-    console.log(e.target.files[0]);
-  };
 
   return (
     <div>
@@ -120,9 +117,9 @@ export const SignUp = () => {
           <br />
           <input
             className="icon-input"
-            accept=".jpg, .png"
+            accept="image/png,image/jpg"
             type="file"
-            onChange={fileset}
+            onChange={handleImageChange}
           />
           <button type="submit" className="signup-button">
             作成
