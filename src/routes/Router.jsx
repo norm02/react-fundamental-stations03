@@ -12,22 +12,23 @@ export const AppRouter = () => {
     <>
       <BrowserRouter>
         <Routes>
-          <Route index element={<Home />} />
-          <Route path="/login" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
           {auth ? (
+            // ルートディレクトリはあくまでHomeページ、ただしHomeページにアクセスするにはサインインが必要
+            // サインインが成功したら、Homeページにリダイレクトする
+            // サインアップが成功したら、(SignUp.jsx内で)サインインをした上でHomeページにリダイレクトする
             <>
-              {
-                // authがtrueの場合：Homeのルーティングを許可する
-              }
               <Route index element={<Home />} />
+              <Route path="/login" element={<Navigate replace to={"/"} />} />
+              <Route path="/signup" element={<Navigate replace to={"/"} />} />
             </>
           ) : (
-            // authがfalseの場合：/loginにリダイレクトする
-            <Route
-              path="/*"
-              element={<Navigate to="/login" replace state={{ from: "*" }} />}
-            />
+            // サインインが成功していない場合、ルートディレクトリにアクセスしてもLoginページにリダイレクトする
+            // サインインとサインアップができていない場合、それぞれのページにアクセスする
+            <>
+              <Route path="/" element={<Navigate replace to={"/login"} />} />
+              <Route path="/login" element={<SignIn />} />
+              <Route path="/signup" element={<SignUp />} />
+            </>
           )}
           {
             // どのルーティングにも当てはまらない場合：NotFoundページを表示する

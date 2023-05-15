@@ -13,3 +13,8 @@ $flex-direction: column;
   display: $display;
   flex-direction: $flex-direction;
 }
+
+@mixin list-margin-padding {
+  margin: 0px;
+  padding: 0px;
+}
