@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 import { url } from "../../const";
 import { Header } from "../../components/Header";
 import "./Home.scss";
 
 export const Home = () => {
   const [books, setBooks] = useState([]);
-
-  // 書籍一覧取得APIを呼び出す
+  const [cookies] = useCookies();
+  //書籍レビュー一覧を取得する
   axios
-    .get(`${url}/public/books`)
+    .get(`${url}/books`, {
+      headers: {
+        Authorization: `Bearer ${cookies.token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    })
     .then((res) => {
       setBooks(res.data);
     })
