@@ -5,9 +5,13 @@ export const paginationSlice = createSlice({
   initialState:{
     offset: 0,
   },
+  //reducersを定義して、actionを受け取った時にstateをどう変更するかを定義する
   reducers: {
+    //action.payloadでactionの引数を受け取れる
     pageQuery: (state,action) => {
-      state.offset = (action.payload-1)*10 
+      //stateのoffsetはactionの引数であるaction.payloadに10をかけたもの
+      //この場合のpayloadは1から始まるページ番号
+      state.offset = (action.payload)*10 
     }
   }
 })

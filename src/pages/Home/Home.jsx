@@ -11,6 +11,7 @@ import "./Home.scss";
 export const Home = () => {
   const [books, setBooks] = useState([]);
   const [cookies] = useCookies();
+  //useSelectorでstoreのstateを取得する
   const pagination = useSelector((state) => state.pagination.offset)
   const dispatch = useDispatch()
   //書籍レビュー一覧を取得する
@@ -29,8 +30,14 @@ export const Home = () => {
       console.log(err);
     })},[pagination])
 
+    //paginationSliceのpageQueryをdispatchする
+    //この時のpageはreact-paginateのpageオブジェクト
     const handlePaginate = (page) =>{
-      dispatch(pageQuery(page))
+      try{
+        dispatch(pageQuery(page.selected))
+      }catch(err){
+        console.log(err)
+      }
     }
 
   return (
