@@ -13,7 +13,15 @@
   color: var.$white-color;
   @include mix.header-position;
 
+  .header-username{
+    color: var.$white-color;
+    margin: auto 25px auto auto;
+  }
   .sign-out-button {
+    color: var.$white-color;
+    margin: auto 25px auto auto;
+  }
+  .sign-in-button {
     color: var.$white-color;
     margin: auto 25px auto auto;
   }

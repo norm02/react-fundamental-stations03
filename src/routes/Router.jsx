@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { Home } from "../pages/Home/Home";
 import { SignIn } from "../pages/SignIn/SignIn";
 import { SignUp } from "../pages/SignUp/SignUp";
+import { PublicReview} from "../pages/PublicReview/PublicReview";
 import { NotFound } from "../pages/NotFound";
 
 export const AppRouter = () => {
@@ -20,14 +21,16 @@ export const AppRouter = () => {
               <Route index element={<Home />} />
               <Route path="/login" element={<Navigate replace to={"/"} />} />
               <Route path="/signup" element={<Navigate replace to={"/"} />} />
+              <Route path="/publicreview" element={<PublicReview replace to ={"/"} />} />
             </>
           ) : (
             // サインインが成功していない場合、ルートディレクトリにアクセスしてもLoginページにリダイレクトする
             // サインインとサインアップができていない場合、それぞれのページにアクセスする
             <>
-              <Route path="/" element={<Navigate replace to={"/login"} />} />
+              <Route path="/" element={<Navigate replace to={"/publicreview"} />} />
               <Route path="/login" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
+              <Route path="/publicreview" element={<PublicReview />} />
             </>
           )}
           {

@@ -6,19 +6,18 @@ import { Header } from "../../components/Header";
 import ReactPaginate from 'react-paginate';
 import { useDispatch, useSelector } from "react-redux";
 import { pageQuery } from "../../paginationSlice";
-import "./Home.scss";
+import "./PublicReview.scss";
 
-export const Home = () => {
+export const PublicReview = () => {
   const [books, setBooks] = useState([]);
   const [cookies] = useCookies();
   //useSelectorでstoreのstateを取得する
   const pagination = useSelector((state) => state.pagination.offset)
   const dispatch = useDispatch()
-
   //書籍レビュー一覧を取得する
   useEffect(()=>{
   axios
-    .get(`${url}/books?offset=${pagination}`, {
+    .get(`${url}/public/books?offset=${pagination}`, {
       headers: {
         Authorization: `Bearer ${cookies.token}`,
         "Content-Type": "multipart/form-data",
