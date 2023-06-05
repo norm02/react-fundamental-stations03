@@ -23,14 +23,13 @@ export const Header = () => {
     navigate("/login");
   };
   //users/のAPIを叩いて、nameとiconUrlが取得できるため、nameを表示する
-  /*
 useEffect(() => {
+  if(auth==true){
     axios
-      .get(`${url}/users/`, {
+      .get(`${url}/users`, {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },
-        withCredentials: true,
       })
       .then((res) => {
         setUserName(res.data.name);
@@ -38,23 +37,27 @@ useEffect(() => {
       .catch((err) => {
         console.log(err);
       });
-  },[cookies.token]);
-*/
+  }},[]);
   return (
     <header className="header">
       <h1>書籍レビューアプリ</h1>
       {auth ? (
         <div>
-          <div className="user-name">
+          <div className="user-status">
+          <p className="user-name">ユーザー名：{userName}</p>
           </div>
+          <br/>
           <button onClick={handleSignOut} className="sign-out-button">
             サインアウト
           </button>
         </div>
       ) : (
+        <div>
+        <div className="user-status"></div>
         <button onClick={handleSignIn} className="sign-in-button">
           サインイン
         </button>
+        </div>
       )}
     </header>
   );

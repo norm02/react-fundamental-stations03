@@ -127,7 +127,7 @@ export const SignUp = () => {
         </form>
         <p className="login-link">
           アカウントをお持ちですか？
-          <Link to="/login">ログインはこちら</Link>
+          <Link to="/login">サインインはこちら</Link>
         </p>
       </main>
     </div>
