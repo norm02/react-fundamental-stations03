@@ -3,7 +3,8 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { Home } from "../pages/Home/Home";
 import { SignIn } from "../pages/SignIn/SignIn";
 import { SignUp } from "../pages/SignUp/SignUp";
-import { PublicReview} from "../pages/PublicReview/PublicReview";
+import { PublicReview } from "../pages/PublicReview/PublicReview";
+import { EditProfile } from "../pages/Profile/Profile";
 import { NotFound } from "../pages/NotFound";
 
 export const AppRouter = () => {
@@ -22,6 +23,7 @@ export const AppRouter = () => {
               <Route path="/login" element={<Navigate replace to={"/"} />} />
               <Route path="/signup" element={<Navigate replace to={"/"} />} />
               <Route path="/publicreview" element={<PublicReview replace to ={"/"} />} />
+              <Route path="/profile" element={<EditProfile />} />
             </>
           ) : (
             // サインインが成功していない場合、ルートディレクトリにアクセスしてもLoginページにリダイレクトする
@@ -31,6 +33,7 @@ export const AppRouter = () => {
               <Route path="/login" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/publicreview" element={<PublicReview />} />
+              <Route path="/profile" element={<Navigate replace to={"/login"} />} />
             </>
           )}
           {

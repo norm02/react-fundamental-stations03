@@ -1,7 +1,7 @@
 
 import { useCookies } from "react-cookie";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { url } from "../const";
@@ -22,7 +22,6 @@ export const Header = () => {
   const handleSignIn = () => {
     navigate("/login");
   };
-  //users/のAPIを叩いて、nameとiconUrlが取得できるため、nameを表示する
 useEffect(() => {
   if(auth==true){
     axios
@@ -43,10 +42,10 @@ useEffect(() => {
       <h1>書籍レビューアプリ</h1>
       {auth ? (
         <div>
+          <Link className="profile-link" to="/profile">プロフィール編集</Link>
           <div className="user-status">
           <p className="user-name">ユーザー名：{userName}</p>
           </div>
-          <br/>
           <button onClick={handleSignOut} className="sign-out-button">
             サインアウト
           </button>
