@@ -21,7 +21,6 @@ export const Home = () => {
     .get(`${url}/books?offset=${pagination}`, {
       headers: {
         Authorization: `Bearer ${cookies.token}`,
-        "Content-Type": "multipart/form-data",
       },
     })
     .then((res) => {

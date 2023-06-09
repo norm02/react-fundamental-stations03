@@ -14,6 +14,7 @@ export const Header = () => {
   const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies();
   const [userName,setUserName] = useState();
+  const [iconUrl,setIconUrl] = useState();
   const handleSignOut = () => {
     dispatch(signOut());
     removeCookie("token");
@@ -32,6 +33,7 @@ useEffect(() => {
       })
       .then((res) => {
         setUserName(res.data.name);
+        setIconUrl(res.data.iconUrl);
       })
       .catch((err) => {
         console.log(err);
@@ -41,21 +43,21 @@ useEffect(() => {
     <header className="header">
       <h1>書籍レビューアプリ</h1>
       {auth ? (
-        <div>
+        <div className="user-status">
           <Link className="profile-link" to="/profile">プロフィール編集</Link>
-          <div className="user-status">
           <p className="user-name">ユーザー名：{userName}</p>
-          </div>
           <button onClick={handleSignOut} className="sign-out-button">
             サインアウト
           </button>
-        </div>
+          <img src = {iconUrl} className="user-icon"></img>
+        </div>  
       ) : (
         <div>
-        <div className="user-status"></div>
+        <div className="user-status">
         <button onClick={handleSignIn} className="sign-in-button">
           サインイン
         </button>
+        </div>
         </div>
       )}
     </header>
