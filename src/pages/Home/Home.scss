@@ -3,7 +3,13 @@
 @use "../../global/variables" as var;
 @use "../../global/mixins" as mix;
 
-
+.home-post-review--button{
+  margin-top: 6px;
+  margin-left:12px
+}
+.post-review--link{
+  color: var.$secondary-color;
+}
 .home-label {
   font-size: 24px;
   font-weight: 500;

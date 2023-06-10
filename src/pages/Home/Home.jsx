@@ -6,6 +6,7 @@ import { Header } from "../../components/Header";
 import ReactPaginate from 'react-paginate';
 import { useDispatch, useSelector } from "react-redux";
 import { pageQuery } from "../../paginationSlice";
+import {Link} from "react-router-dom"
 import "./Home.scss";
 
 export const Home = () => {
@@ -43,6 +44,10 @@ export const Home = () => {
   return (
     <div>
       <Header />
+      <button className="home-post-review--button">
+      <Link to="/new" className="post-review--link">書籍レビュー登録</Link>
+      </button>
+      <br />
       <label className="home-label">書籍レビュー一覧</label>
       <ReactPaginate
         previousLabel={'<'}
