@@ -1,8 +1,8 @@
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import Compressor from "compressorjs";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Header } from "../../components/Header";
 import "./Profile.scss";
 import { url } from "../../const";
@@ -21,55 +21,60 @@ export const EditProfile = () => {
     formState: { errors },
   } = useForm();
 
-  useEffect(()=>{
+  useEffect(() => {
     axios
-      .get(`${url}/users`,{
-      headers: {
-        Authorization: `Bearer ${cookies.token}`,
-}}
-      )
-      .then((res)=>{
-        reset({"name":res.data.name})
-      })
-      .catch((err)=>{
-        console.log(err)
-      })
-  },[])
-
-  const onSubmit = async (data) => {
-// 画像を圧縮して送信
-new Compressor(image, {
-  quality: 0.4,
-  success: (result) => {
-    // 送信用のフォームデータを作成
-    const formData = new FormData();
-    formData.append("icon", result);
-    console.log(formData.get("icon"));
-    // フォームデータをAPIのuploadsに送信
-    axios
-      .post(`${url}/uploads`, formData, {
+      .get(`${url}/users`, {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },
       })
-      .then(() => {
-        console.log("Upload Success");
-        navigate("/");
+      .then((res) => {
+        reset({ name: res.data.name });
+      })
+      .catch((err) => {
+        console.log(err);
       });
-  },
-  error(err) {
-    console.log(err.message);
-  },
-});
+  }, []);
+
+  const onSubmit = async (data) => {
+    if (image === null || data.name === cookies.name) {
+      setErrorMessage("ユーザー名またはアイコン画像を変更してください");
+      return;
+    }
+    new Compressor(image, {
+      quality: 0.4,
+      success: (result) => {
+        // 送信用のフォームデータを作成
+        const formData = new FormData();
+        formData.append("icon", result);
+        console.log(formData.get("icon"));
+        // フォームデータをAPIのuploadsに送信
+        axios
+          .post(`${url}/uploads`, formData, {
+            headers: {
+              Authorization: `Bearer ${cookies.token}`,
+            },
+          })
+          .then(() => {
+            console.log("Upload Success");
+            navigate("/");
+          });
+      },
+      error(err) {
+        console.log(err.message);
+      },
+    });
+    //APIのusersにPUTリクエストを送る
     await axios
-      .put(`${url}/users`  ,data,{
+      .put(`${url}/users`, data, {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
-  }})
+        },
+      })
       .then((res) => {
-        reset({"name":res.data.name})
+        reset({ name: res.data.name });
         navigate("/");
-        console.log(res.data)
+        console.log(res.data);
       })
       .catch((err) => {
         setErrorMessage(`編集に失敗しました${err}`);
