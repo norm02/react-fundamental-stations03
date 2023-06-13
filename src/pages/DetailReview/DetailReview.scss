@@ -1,0 +1,52 @@
+@charset "utf-8";
+
+@use "../../global/variables" as var;
+@use "../../global/mixins" as mix;
+
+.detail-review--label {
+  font-size: 24px;
+  font-weight: 500;
+  padding: 10px;
+  margin-bottom: 16px;
+}
+.detail-review--loading {
+  text-align: center;
+}
+
+.detail-review--lists {
+  margin: 0px;
+  padding: 0px;
+}
+.detail-review--id {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid var.$secondary-color;
+}
+
+.detail-review--title {
+  margin: 0 auto;
+  padding: 0 auto;
+  font-size: 18px;
+}
+.detail-review--url {
+  margin: 0 auto;
+  padding: 0 auto;
+  font-size: 12px;
+}
+
+.detail-review--review {
+  margin: 0 auto;
+  padding: 0 auto;
+  font-size: 16px;
+}
+
+.detail-review--detail {
+  margin: 0 auto;
+  padding: 0 auto;
+  font-size: 14px;
+}
+.detail-review--reviewer {
+  margin: 0 auto;
+  padding: 0 auto;
+  font-size: 12px;
+}
