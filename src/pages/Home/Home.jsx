@@ -84,28 +84,41 @@ export const Home = () => {
       <ul className="book-review--lists">
         {books.map((book) => (
           <li className="book-review_id--border" key={book.id}>
-            <Link
-              onClick={() => sendLog(book.id)}
-              to={`/detail/${book.id}`}
-              state={{ selectBookID: book.id }}
-              className="book-review--link"
-            >
-              <p className="book-review_title--18px">タイトル：{book.title}</p>
-              {/*
-              <p className="book-review_url--12px">URL:{book.url}</p>
-              */}
-              <p className="book-review_reviewer--16px">
-                レビュワー：{book.reviewer}
-              </p>
-              <p className="book-review_review--16px">
-                レビュー概要：{book.review}
-              </p>
-              {/*
-              <p className="book-review_detail--16px">
-                レビュー詳細：{book.detail}
-              </p>
-              */}
-            </Link>
+            {book.isMine ? (
+              <Link
+                onClick={() => sendLog(book.id)}
+                to={`/edit/${book.id}`}
+                state={{ selectBookID: book.id }}
+                className="book-review--link"
+              >
+                <p className="book-review_title--18px">
+                  タイトル：{book.title}
+                </p>
+                <p className="book-review_reviewer--16px">
+                  レビュワー：{book.reviewer}
+                </p>
+                <p className="book-review_review--16px">
+                  レビュー概要：{book.review}
+                </p>
+              </Link>
+            ) : (
+              <Link
+                onClick={() => sendLog(book.id)}
+                to={`/detail/${book.id}`}
+                state={{ selectBookID: book.id }}
+                className="book-review--link"
+              >
+                <p className="book-review_title--18px">
+                  タイトル：{book.title}
+                </p>
+                <p className="book-review_reviewer--16px">
+                  レビュワー：{book.reviewer}
+                </p>
+                <p className="book-review_review--16px">
+                  レビュー概要：{book.review}
+                </p>
+              </Link>
+            )}
           </li>
         ))}
       </ul>

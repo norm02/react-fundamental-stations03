@@ -7,6 +7,7 @@ import { PublicReview } from "../pages/PublicReview/PublicReview";
 import { EditProfile } from "../pages/Profile/Profile";
 import { PostReview } from "../pages/PostReview/PostReview";
 import { DetailReview } from "../pages/DetailReview/DetailReview";
+import { EditReview } from "../pages/EditReview/EditReview";
 import { NotFound } from "../pages/NotFound";
 
 export const AppRouter = () => {
@@ -31,6 +32,7 @@ export const AppRouter = () => {
               <Route path="/profile" element={<EditProfile />} />
               <Route path="/new" element={<PostReview />} />
               <Route path="/detail/:id" element={<DetailReview />} />
+              <Route path="/edit/:id" element={<EditReview />} />
             </>
           ) : (
             // サインインが成功していない場合、ルートディレクトリにアクセスしてもLoginページにリダイレクトする
@@ -50,6 +52,10 @@ export const AppRouter = () => {
               <Route path="/new" element={<Navigate replace to={"/login"} />} />
               <Route
                 path="/detail/:id"
+                element={<Navigate replace to={"/login"} />}
+              />
+              <Route
+                path="/edit/:id"
                 element={<Navigate replace to={"/login"} />}
               />
             </>

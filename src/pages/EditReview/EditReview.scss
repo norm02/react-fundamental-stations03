@@ -3,28 +3,39 @@
 @use "../../global/variables" as var;
 @use "../../global/mixins" as mix;
 
-.profile-edit {
+.edit-review {
   width: 500px;
   margin: 0 auto;
 }
 
-.profile-form {
+.edit-review-form {
   margin: var.$margin-bottom 0;
 }
 
-.profile-label {
+.edit-review--label {
   color: var.$secondary-color;
 }
 
-.profile-input {
+.edit-review--title-input,
+.edit-review--url-input,
+.edit-review--review-input,
+.edit-review--detail-input {
   width: 100%;
   font-size: large;
   height: 30px;
   margin-bottom: var.$margin-bottom;
 }
 
-.profile-button {
+.edit-review--submit-button {
   background-color: var.$primary-color;
+  color: var.$white-color;
+  width: 100px;
+  height: 40px;
+  border-radius: var.$button-radius;
+}
+
+.edit-review--delete-button {
+  background-color: var.$secondary-color;
   color: var.$white-color;
   width: 100px;
   height: 40px;
