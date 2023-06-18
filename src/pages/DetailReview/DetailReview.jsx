@@ -2,15 +2,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Header } from "../../components/Header";
 import { useCookies } from "react-cookie";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import BeatLoader from "react-spinners/BeatLoader";
 import "./DetailReview.scss";
 import { url } from "../../const";
 
 export const DetailReview = () => {
-  const { state } = useLocation();
+  const { id } = useParams();
   const [cookies] = useCookies();
-  const detailReviewID = state && state.selectBookID;
   const [detailReview, setDetailReview] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -18,7 +17,7 @@ export const DetailReview = () => {
   useEffect(() => {
     setLoading(false);
     axios
-      .get(`${url}/books/${detailReviewID}`, {
+      .get(`${url}/books/${id}`, {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },
@@ -30,7 +29,7 @@ export const DetailReview = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [detailReviewID, cookies.token]);
+  }, [id, cookies.token]);
 
   return (
     <div className="detail-review">

@@ -2,16 +2,15 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Header } from "../../components/Header";
 import { useCookies } from "react-cookie";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import "./EditReview.scss";
 import { url } from "../../const";
 
 export const EditReview = () => {
-  const { state } = useLocation();
+  const { id } = useParams();
   const [cookies] = useCookies();
   const navigate = useNavigate();
-  const EditReviewID = state && state.selectBookID;
   const [errorMessage, setErrorMessge] = useState();
   const {
     register,
@@ -23,28 +22,32 @@ export const EditReview = () => {
   // レビューを取得する
   useEffect(() => {
     axios
-      .get(`${url}/books/${EditReviewID}`, {
+      .get(`${url}/books/${id}`, {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },
       })
       .then((res) => {
-        reset({
-          title: res.data.title,
-          url: res.data.url,
-          detail: res.data.detail,
-          review: res.data.review,
-        });
+        if (res.data.isMine) {
+          reset({
+            title: res.data.title,
+            url: res.data.url,
+            detail: res.data.detail,
+            review: res.data.review,
+          });
+        } else {
+          navigate("/");
+        }
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [id, cookies.token]);
 
   // レビューを更新する
   const onSubmit = (data) => {
     axios
-      .put(`${url}/books/${EditReviewID}`, data, {
+      .put(`${url}/books/${id}`, data, {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },
@@ -57,7 +60,7 @@ export const EditReview = () => {
           review: res.data.review,
         });
         console.log(res);
-        navigate("/");
+        navigate("/detail/:id");
       })
       .catch((err) => {
         console.log(err);
@@ -67,7 +70,7 @@ export const EditReview = () => {
   //書籍レビューを削除する
   const deleteReview = () => {
     axios
-      .delete(`${url}/books/${EditReviewID}`, {
+      .delete(`${url}/books/${id}`, {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },
